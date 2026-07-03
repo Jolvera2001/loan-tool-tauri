@@ -1,7 +1,7 @@
 @inherits LayoutComponentBase
 
 @* Required *@
-<MudThemeProvider />
+<MudThemeProvider IsDarkMode="true" />
 <MudPopoverProvider />
 
 @* Needed for dialogs *@
@@ -15,3 +15,7 @@
         @Body
     </MudMainContent>
 </MudLayout>
+
+@code {
+    private MudTheme _theme;
+}

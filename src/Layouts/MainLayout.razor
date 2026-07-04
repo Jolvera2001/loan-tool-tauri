@@ -11,6 +11,15 @@
 <MudSnackbarProvider />
 
 <MudLayout>
+    <MudAppBar Dense="true">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" 
+                       Color="Color.Inherit" 
+                       Edge="Edge.Start"
+                       onclick="@_drawerToggle" />
+    </MudAppBar>
+    <MudDrawer @bind-Open="@_open">
+
+    </MudDrawer>
     <MudMainContent>
         @Body
     </MudMainContent>
@@ -18,4 +27,7 @@
 
 @code {
     private MudTheme _theme;
+    private bool _open;
+
+    private void _drawerToggle() => _open = !_open;
 }

@@ -2,11 +2,39 @@
 @inherits ViewModelComponentBase<MainViewModel>
 @inject Tauri Tauri
 
-<MudNumericField @bind-Value="ViewModel.Principal" T="decimal" />
-<MudNumericField @bind-Value="ViewModel.Rate" T="decimal" />
-<MudNumericField @bind-Value="ViewModel.Months" T="decimal" />
-<MudButton OnClick="ViewModel.CalculateMonthlyPaymentCommand.ExecuteAsync">
-    Calculate
-</MudButton>
-
-<MudText>Monthly Payment: @ViewModel.MonthlyPayment.ToString("F2")</MudText>
+<MudStack Spacing="5">
+    <MudStack Spacing="2">
+        <MudStack Spacing="3" Row="true">
+            <MudNumericField @bind-Value="ViewModel.Principal" T="decimal" />
+            <MudNumericField @bind-Value="ViewModel.Rate" T="decimal" />
+            <MudNumericField @bind-Value="ViewModel.Months" T="decimal" />
+        </MudStack>
+        <MudButtonGroup Variant="Variant.Outlined">
+            <MudButton OnClick="ViewModel.CalculateMonthlyPaymentCommand.ExecuteAsync">
+                Calculate
+            </MudButton>
+            <MudButton OnClick="ViewModel.AddNewLoanCommand.ExecuteAsync">Add +</MudButton>
+        </MudButtonGroup>
+        <MudText>Monthly Payment: @ViewModel.MonthlyPayment?.ToString("F2")</MudText>
+    </MudStack>
+    <MudTable Items="@ViewModel.Loans.Take(5)" Hover="true" AllowUnsorted="true" Breakpoint="Breakpoint.Sm">
+        <HeaderContent>
+            <MudTh>Id</MudTh>
+            <MudTh>Date Created</MudTh>
+            <MudTh>Date Updated</MudTh>
+            <MudTh>Principal</MudTh>
+            <MudTh>Rate (Yearly)</MudTh>
+            <MudTh>Monthly Payment</MudTh>
+            <MudTh>Months</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Id">@context.Id</MudTd>
+            <MudTd DataLabel="Date Created">@context.DateCreated</MudTd>
+            <MudTd DataLabel="Date Updated">@context.DateUpdated</MudTd>
+            <MudTd DataLabel="Principal">$@context.Principal</MudTd>
+            <MudTd DataLabel="Rate">@context.Rate%</MudTd>
+            <MudTd DataLabel="Monthly Payment">$@context.MonthlyPayment.ToString("F2")</MudTd>
+            <MudTd DataLabel="Months">@context.Months</MudTd>
+        </RowTemplate>
+    </MudTable>
+</MudStack>

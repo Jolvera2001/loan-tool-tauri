@@ -1,4 +1,5 @@
 @inherits LayoutComponentBase
+@inject NavigationManager NM
 
 @* Required *@
 <MudThemeProvider IsDarkMode="true" />
@@ -12,13 +13,14 @@
 
 <MudLayout>
     <MudAppBar Dense="true">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" 
-                       Color="Color.Inherit" 
-                       Edge="Edge.Start"
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start"
                        onclick="@_drawerToggle" />
     </MudAppBar>
     <MudDrawer @bind-Open="@_open">
-
+        <MudIconButton Icon="@Icons.Material.Filled.AccountBalance" Color="Color.Inherit" Edge="Edge.Start"
+                       onclick="@(() => _navigate("/"))" />
+        <MudIconButton Icon="@Icons.Material.Filled.AttachMoney" Color="Color.Inherit" Edge="Edge.Start"
+                       onclick="@(() => _navigate("/budgets"))" />
     </MudDrawer>
     <MudMainContent>
         @Body
@@ -30,4 +32,8 @@
     private bool _open;
 
     private void _drawerToggle() => _open = !_open;
+    private void _navigate(string route)
+    {
+        NM.NavigateTo(route);
+    }
 }
